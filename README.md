@@ -37,7 +37,7 @@ To preview a markdown file, run the command `:MarkdownPreview` while in normal m
 
 Other options for you to checkout if this does not work for you:
 
-- [iamcco/markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)
+-   [iamcco/markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)
 
 ## License
 

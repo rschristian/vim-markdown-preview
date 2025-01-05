@@ -25,7 +25,7 @@ marked.use({
  * @param {import('neovim').NvimPlugin} plugin
  */
 async function run(plugin) {
-    const buffer = await plugin.nvim.buffer
+    const buffer = await plugin.nvim.buffer;
     const bufferLines = await buffer.getLines();
     const bufferContent = bufferLines.join('\n');
 
@@ -43,8 +43,5 @@ async function run(plugin) {
 export default function Plugin(plugin) {
     plugin.setOptions({ dev: false });
 
-    plugin.registerCommand(
-        'MarkdownPreview',
-        async () => await run(plugin),
-    );
+    plugin.registerCommand('MarkdownPreview', async () => await run(plugin));
 }
