@@ -77,6 +77,7 @@ pre {
   border-radius: 0.5rem;
 
   code {
+    padding: 0;
     background-color: transparent;
   }
 }
