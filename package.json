@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Simple markdown preview plugin for Neovim",
+  "scripts": {
+    "test": "exit 0",
+    "format": "prettier --write --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "marked": "^15.0.5",
+    "prismjs": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.6",
+    "neovim": "^5.3.0",
+    "prettier": "^2.8.8",
+    "prettier-config-rschristian": "^0.1.1"
+  },
+  "prettier": "prettier-config-rschristian"
+}
