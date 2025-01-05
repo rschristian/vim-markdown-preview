@@ -1,17 +1,17 @@
-export const templateHtml = (md) => `
+export const templateHtml = ({ bufferName, bufferContent }) => `
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-        <title>Document</title>
+        <title>${bufferName}</title>
 
         <style>${css}</style>
     </head>
     <body>
         <main>
-            ${md}
+            ${bufferContent}
         </main>
     </body>
 </html>
