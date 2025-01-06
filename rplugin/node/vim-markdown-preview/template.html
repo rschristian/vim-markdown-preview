@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+        <title><% bufferName %></title>
+
+        <style>
+            body {
+              color: #f0f6fc;
+              background-color: #0d1117;
+              font-size: 1.125rem;
+
+              margin: 0;
+              padding: 0;
+              min-height: 100vh;
+            }
+
+            main {
+              max-width: 56rem;
+              margin: 0 auto 4rem;
+
+            }
+
+            h1 {
+              font-size: 2em;
+            }
+
+            h2 {
+              font-size: 1.5em;
+            }
+
+            h1, h2 {
+              padding-bottom: .3em;
+              border-bottom: 1px solid #3d444db3;
+            }
+
+            a {
+              color: #4493f8;
+              text-decoration: none;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+
+            table {
+                display: block;
+                overflow: auto;
+                border-collapse: collapse;
+
+                tr {
+                    background-color: #0d1117;
+
+                    &:nth-child(2n) {
+                        background-color: #151b23;
+                    }
+
+                    th {
+                        font-weight: 600;
+                    }
+
+                    th, td {
+                        padding: 0.4em 0.75em;
+                        border: 1px solid #3d444d;
+                    }
+                }
+            }
+
+            blockquote {
+              padding: 0 1em;
+              color: #9198a1;
+              border-left: 0.25em solid #3d444d;
+            }
+
+            code {
+              background-color: #757c8633;
+
+              font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+              -moz-tab-size: 4;
+              -o-tab-size: 4;
+              tab-size: 4;
+            }
+
+            /* Code blocks */
+            pre[class*="highlight"] {
+              padding: 0.75rem;
+              overflow: auto;
+              background-color: #151b23;
+              border-radius: 0.5rem;
+
+              font-size: 0.85em;
+            }
+
+            pre[class*="highlight"] > code {
+              background-color: transparent;
+            }
+
+            /* Inline code */
+            :not(pre) > code {
+                padding: 0.2em 0.4em;
+                font-size: 0.85em;
+                border-radius: 0.3em;
+            }
+
+            .scrollable {
+                cursor: grab;
+            }
+
+            /** Prism Code Highlighting **/
+
+            .token.comment,
+            .token.prolog,
+            .token.doctype,
+            .token.cdata {
+                color: #9198a1;
+            }
+
+            .token.punctuation {
+                color: #c5c8c6;
+            }
+
+            .namespace {
+                opacity: .7;
+            }
+
+
+            .token.property {
+                color: #79c0ff;
+            }
+
+            .token.keyword,
+            .token.tag {
+                color: #ff7b72;
+            }
+
+            .token.class-name {
+                color: #ffa657;
+            }
+
+            .token.boolean,
+            .token.constant {
+                color: #99CC99;
+            }
+
+            .token.symbol,
+            .token.deleted {
+                color: #f92672;
+            }
+
+            .token.number {
+                color: #FF73FD;
+            }
+
+            .token.selector,
+            .token.string,
+            .token.attr-value,
+            .token.char,
+            .token.builtin,
+            .token.inserted {
+                color: #a5d6ff;
+            }
+
+            .token.attr-name {
+                color: #79c0ff;
+            }
+
+            .token.variable {
+                color: #C6C5FE;
+            }
+
+            .token.operator {
+                color: #EDEDED;
+            }
+
+            .token.entity {
+                color: #FFFFB6;
+                cursor: help;
+            }
+
+            .token.url {
+                color: #96CBFE;
+            }
+
+            .language-css .token.string,
+            .style .token.string {
+                color: #87C38A;
+            }
+
+            .token.atrule {
+                color: #F9EE98;
+            }
+
+            .token.function {
+                color: #d2a8ff;
+            }
+
+            .token.regex {
+                color: #E9C062;
+            }
+
+            .token.important {
+                color: #fd971f;
+            }
+
+            .token.important,
+            .token.bold {
+                font-weight: bold;
+            }
+
+            .token.italic {
+                font-style: italic;
+            }
+
+            .token.inserted {
+              color: #aff5b4;
+              background-color: #033a16;
+            }
+
+            .token.deleted {
+              color: #ffdcd7;
+              background-color: #67060c;
+            }
+
+            .token.script.language-javascript {
+              color: #f0f6fc;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <% bufferContent %>
+        </main>
+
+        <script type="module">
+            let mouseDown = false;
+            let startX, scrollLeft;
+
+            const startDragging = (e) => {
+                e.preventDefault();
+                mouseDown = true;
+                startX = e.pageX - e.currentTarget.offsetLeft;
+                scrollLeft = e.currentTarget.scrollLeft;
+                e.currentTarget.setAttribute('style', 'cursor: grabbing;');
+            };
+
+            const stopDragging = (e) => {
+                mouseDown = false;
+                e.currentTarget.removeAttribute('style');
+            };
+
+            const move = (e) => {
+                e.preventDefault();
+                if (!mouseDown) return;
+                const scroll = e.pageX - e.currentTarget.offsetLeft - startX;
+                e.currentTarget.scrollLeft = scrollLeft - scroll;
+            };
+
+            const tags = document.querySelectorAll('pre, table');
+
+            for (const tag of tags) {
+                if (tag.scrollWidth > tag.clientWidth) {
+                    tag.classList.add('scrollable');
+
+                    tag.addEventListener('mousemove', move);
+                    tag.addEventListener('mousedown', startDragging);
+                    tag.addEventListener('mouseup', stopDragging);
+                    tag.addEventListener('mouseleave', stopDragging);
+                }
+            }
+        </script>
+    </body>
+</html>
