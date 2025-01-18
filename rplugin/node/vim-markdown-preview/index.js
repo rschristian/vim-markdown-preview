@@ -37,6 +37,10 @@ async function run(plugin) {
     const bufferContent = bufferLines.join('\n');
     const bufferName = await buffer.name;
 
+    if (!bufferName.endsWith('.md')) {
+        return plugin.nvim.errWriteLine('This is not a markdown file');
+    }
+
     if (!readTemplateHtml) {
         readTemplateHtml = fs.readFile(path.join(__dirname, 'template.html'), 'utf-8');
     }
